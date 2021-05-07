@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
 
+// Importamos desde redux la funcion para crear nuestro store
+import { createStore } from "redux";
+// Importamos el Provider desde react-redux
+import { Provider } from "react-redux";
+// Importamos nuestro reducer
+import { reducer } from "../src/redux/reducer";
+
+const initialstate = {
+  count: 0,
+};
+
+// La funcion "createStore" debe recibir nuestro "reducer" y el "initialState".
+const store = createStore(reducer, initialstate);
+
+// Definimos el "Provider" como componente de orden superior
+// sobre nuestro arbol de componentes y recibe como "props el "store":
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
